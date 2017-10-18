@@ -4,9 +4,11 @@ import store from '../store'
 import fetchStudents from '../reducers/index'
 import StudentList from './StudentList'
 import CampusList from './CampusList'
+import Navbar from './Navbar'
 
 const Root = ({children}) => (
   <div>
+    <Navbar />
     {children}
   </div>
 

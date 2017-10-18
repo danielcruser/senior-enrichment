@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+class CampusList extends Component {
 
-export default class CampusList extends Component {
-
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
   }
 
   componentdidMount(){
@@ -13,7 +13,18 @@ export default class CampusList extends Component {
   render()  {
 
     return (
-      <div>CampusList</div>
+      <div className='container'>CampusList
+        <ul>
+          {this.props.campuses.map(campus => <li key={campus.id}> {campus.name} </li>)}
+        </ul>
+
+
+
+      </div>
     )
   }
 }
+
+const mapState= ({campuses}) => ({campuses})
+
+export default connect(mapState)(CampusList)
