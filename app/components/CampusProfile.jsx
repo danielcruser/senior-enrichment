@@ -1,19 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+// import { fetchStudent } from '../reducers'
 
-export default class CampusProfile extends Component {
+export class CampusProfile extends Component {
 
-  constructor(){
-    super()
+
+
+
+  componentDidMount() {
+
   }
 
-  componentdidMount(){
-
-  }
 
   render()  {
 
+    console.log('Campus Profile Props', this.props)
     return (
-      <div>CampusProfile</div>
+      <div>CampusProfileComponent for  </div>
     )
   }
 }
+
+// const mapState= ({selectedStudent}) => ({selectedStudent})
+
+
+
+
+
+export default connect()(CampusProfile)

@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-class CampusList extends Component {
+import { CampusItem } from './CampusItem'
+
+export class CampusList extends Component {
 
   constructor(props){
     super(props)
+
+
+
   }
 
   componentdidMount(){
@@ -13,9 +18,13 @@ class CampusList extends Component {
   render()  {
 
     return (
-      <div className='container'>CampusList
+      <div className='container'>
         <ul>
-          {this.props.campuses.map(campus => <li key={campus.id}> {campus.name} </li>)}
+          {this.props.campuses
+            .map(campus => (
+              <CampusItem campus={campus} key={campus.id}>
+                {campus.name}
+              </CampusItem>))}
         </ul>
 
 

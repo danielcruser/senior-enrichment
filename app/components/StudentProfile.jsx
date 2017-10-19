@@ -1,29 +1,101 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-// import { fetchStudent } from '../reducers'
+
+import { Link, withRouter} from 'react-router-dom'
+import { fetchStudent, putStudent, fetchCampuses, fetchStudents, dbDeleteStudent} from '../reducers'
 
 export class StudentProfile extends Component {
-
-
-
-  componentDidMount() {
-
+  componentDidMount(){
+    this.props.fetchInitialData()
   }
 
 
-  render()  {
 
-    console.log('Student Profile Props', this.props)
+  render(){
+
+    // const selectedStudent = this.props.students.find(student => student.id == this.props.selectedStudent)
+    const selectedStudent = this.props.selectedStudent
+    console.log(selectedStudent)
+    console.log('looking for history', history)
     return (
-      <div>StudentProfileComponent for  </div>
+      selectedStudent &&
+
+      <div>"StudentProfile for" {selectedStudent.name}
+      <form onSubmit={this.props.handleSubmit} value={selectedStudent.id}>
+        <div>
+          <label> edit name </label>
+          <input
+            name = "studentName"
+            type= "text"
+            placeholder= {selectedStudent.name}/>
+          <label> edit email </label>
+          <input
+
+            name = "studentEmail"
+            type= "text"
+            placeholder= {selectedStudent.email}/>
+          <label> edit campus </label>
+          <input
+
+            name = "studentCampusId"
+            type= "text"
+            placeholder= {selectedStudent.campusId}/>
+          <input
+            readOnly="readOnly"
+            value = {selectedStudent.id}
+            name = "id"
+            type= "hidden"
+            />
+        </div>
+        <div>
+          <button type="submit"> Edit Student info </button>
+        </div>
+      </form>
+
+      <form onSubmit={this.props.handleDelete}>
+      <div>
+        <button type="submit" name="deleteId" value={this.props.selectedStudent.id}>delete student</button>
+        </div>
+      </form>
+
+      </div>
     )
   }
 }
 
-const mapState= ({selectedStudent}) => ({selectedStudent})
+
+  const mapState = function(state, ownProps){
+    return {
+      ...state
+    }
+  }
+
+const mapDispatch = function(dispatch, ownProps) {
+  return {
+    handleSubmit (event) {
+      event.preventDefault()
+      const name = event.target.studentName.value
+      const email = event.target.studentEmail.value
+      const campusId = event.target.studentCampusId.value
+      const id = event.target.id.value
+      dispatch(putStudent({ name, email, campusId, id}))
+
+    },
+    handleDelete (event) {
+      event.preventDefault()
+      const id = event.target.deleteId.value
+
+      dispatch(dbDeleteStudent({ id }, ownProps.history))
 
 
+    },
+        fetchInitialData: () =>{
+          // dispatch(fetchStudents())
+          // dispatch(fetchCampuses())
+          dispatch(fetchStudent(ownProps.match.params))
 
+    }
+  }
+}
 
-
-export default connect(mapState)(StudentProfile)
+export default withRouter(connect(mapState, mapDispatch)(StudentProfile))

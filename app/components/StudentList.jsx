@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { withRouter} from 'react-router-dom'
 import { StudentItem } from './StudentItem'
+import { postStudent} from '../reducers/index'
 class StudentList extends Component {
 
-  constructor(props){
-    super(props)
-
-
-
-  }
 
   componentdidMount(){
 
   }
 
   render()  {
-
+    console.log('looking for campuses', this.props)
     return (
-      <div className='container'>StudentListComponent
+      <div className='container'>
         <ul>
           {this.props.students
             .map(student => (
@@ -25,6 +21,33 @@ class StudentList extends Component {
                 {student.name}
               </StudentItem>))}
         </ul>
+        <br />
+        <br />
+        <div>
+            <form onSubmit={this.props.handleSubmit}>
+            <div>
+              <label> create name </label>
+              <input
+                name = "studentName"
+                type= "text"
+                placeholder= 'name' />
+              <label> create email </label>
+              <input
+
+                name = "studentEmail"
+                type= "text"
+                placeholder= 'email'/>
+              <label> choose campus </label>
+              <select name="studentCampusId">
+                {this.props.campuses.map(campus => <option value={campus.id} key={campus.id}>{campus.name}</option>)}
+              </select>
+            </div>
+            <div>
+              <button type="submit"> Create Student  </button>
+            </div>
+          </form>
+
+        </div>
 
 
 
@@ -33,6 +56,20 @@ class StudentList extends Component {
   }
 }
 
-const mapState= ({students}) => ({students})
+const mapState= (state) => ({...state})
 
-export default connect(mapState)(StudentList)
+const mapDispatch = function(dispatch, ownProps){
+
+  return {
+  handleSubmit(event){
+      event.preventDefault()
+      const name = event.target.studentName.value
+      const email = event.target.studentEmail.value
+      const campusId = event.target.studentCampusId.value
+      console.log(name, email, campusId)
+      dispatch(postStudent({name, email, campusId}, ownProps.history))
+    }
+  }
+}
+
+export default withRouter(connect(mapState, mapDispatch)(StudentList))
