@@ -6,6 +6,7 @@ import StudentList from './components/StudentList'
 import StudentItem from './components/StudentItem'
 import StudentProfile from './components/StudentProfile'
 import CampusList from './components/CampusList'
+import CampusProfile from './components/CampusProfile'
 import Root from './components/Root'
 import { fetchStudents, fetchCampuses, fetchStudent} from './reducers'
 
@@ -24,6 +25,8 @@ class Routes extends Component {
             <Route exact path='/students' component={StudentList} />
             <Route path='/students/:studentId' render={(props)=><StudentProfile props = {props.match.params} /> }  />
             <Route exact path='/campuses' component={CampusList} />
+            <Route path='/campuses/:campusId' render={(props)=><CampusProfile props = {props.match.params} /> }  />
+
             <Redirect path="*" to="/" />
           </Switch>
           </Root>

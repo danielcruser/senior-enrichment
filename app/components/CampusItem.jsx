@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { NavLink} from 'react-router-dom'
+import { withRouter, NavLink} from 'react-router-dom'
 // import { fetchStudent } from '../reducers'
 
 export class CampusItem extends Component {
@@ -25,7 +25,12 @@ export class CampusItem extends Component {
   }
 }
 
+const mapState = function(state){
+  return {
+    ...state,
+    campuses: state.campuses
+  }
+}
 
 
-
-export default connect()(CampusItem)
+export default withRouter(connect(mapState, null)(CampusItem))

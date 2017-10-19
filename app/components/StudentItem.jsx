@@ -21,6 +21,7 @@ export class StudentItem extends Component {
 }
 const mapState= function (state) {
   return {
+    ...state,
     students: state.students
   }
 }

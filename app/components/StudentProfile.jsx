@@ -35,11 +35,9 @@ export class StudentProfile extends Component {
             type= "text"
             placeholder= {selectedStudent.email}/>
           <label> edit campus </label>
-          <input
-
-            name = "studentCampusId"
-            type= "text"
-            placeholder= {selectedStudent.campusId}/>
+          <select name="studentCampusId">
+          {this.props.campuses.map(campus => <option value={campus.id} key={campus.id}>{campus.name}</option>)}
+        </select>
           <input
             readOnly="readOnly"
             value = {selectedStudent.id}
@@ -71,6 +69,7 @@ export class StudentProfile extends Component {
   }
 
 const mapDispatch = function(dispatch, ownProps) {
+  console.log('ownProps', ownProps)
   return {
     handleSubmit (event) {
       event.preventDefault()

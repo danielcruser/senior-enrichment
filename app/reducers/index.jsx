@@ -8,7 +8,7 @@ const UPDATE_STUDENT = 'UPDATE_STUDENT'
 const DELETE_STUDENT = 'DELETE_STUDENT'
 const CREATE_STUDENT = 'CREATE_STUDENT'
 const GET_CAMPUSES = 'GET_CAMPUSES'
-const SELECTED_A_CAMPUS = 'SELECTED_A_CAMPUS'
+const SELECT_CAMPUS = 'SELECT_CAMPUS'
 const UPDATED_A_CAMPUS = 'UPDATED_A_CAMPUS'
 const DELETED_A_CAMPUS = 'DELETED_A_CAMPUS'
 const CREATE_CAMPUS = 'CREATE_CAMPUS'
@@ -49,6 +49,19 @@ export function getCampuses(campuses) {
   return {
     type: GET_CAMPUSES,
     campuses: campuses
+  }
+}
+export function getCampus(campus){
+  return {
+    type: SELECT_CAMPUS,
+    campus: campus
+  }
+}
+
+export function createCampus(campus){
+  return {
+    type: CREATE_CAMPUS,
+    campus: campus
   }
 }
 
@@ -133,6 +146,36 @@ export function fetchCampuses(){
   }
 }
 
+export function fetchCampus(campus){
+  console.log('campus coming in', campus)
+    return function thunk(dispatch) {
+      return axios.get(`/api/campuses/${campus.campusId}`)
+      .then(res => res.data)
+      .then( campus => {
+        const action = getCampus(campus)
+        dispatch(action)
+      })
+    }
+  }
+
+export function postCampus(campus, history){
+
+    console.log('posting campus', campus)
+        return function thunk(dispatch) {
+          console.log('posting campus', campus)
+          return axios.post('/api/campuses/', campus)
+          .then(res => res.data)
+          .then( campus => {
+            const action = createCampus(campus)
+            dispatch(action)
+            dispatch(fetchCampuses())
+            console.log('campus test', campus)
+            history.push(`/campuses/${campus.id}`)
+          })
+        }
+      }
+
+
 
 
 //InitialState
@@ -174,6 +217,17 @@ const rootReducer = function(state = initialState, action) {
     return {
       ...state,
       campuses: action.campuses
+    }
+
+    case SELECT_CAMPUS:
+    return {
+      ...state,
+      selectedCampus: action.campus
+    }
+    case CREATE_CAMPUS:
+    return {
+      ...state,
+      selectedCampus: action.campus
     }
     default: return state
   }

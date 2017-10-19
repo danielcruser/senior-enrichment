@@ -16,7 +16,7 @@ router.get('/:campusId', (req, res, next) => {
 })
 //post a campus
 router.post('/', (req, res, next) => {
-  Campus.create(req.body)
+  Campus.create({name: req.body.name})
   .then(campus => res.send(campus))
   .catch(next)
 })
