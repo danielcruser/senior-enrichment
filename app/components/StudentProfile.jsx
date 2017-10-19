@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
 import { Link, withRouter} from 'react-router-dom'
-import { fetchStudent, putStudent, fetchCampuses, fetchStudents, dbDeleteStudent} from '../reducers'
-
+import { fetchStudent, putStudent, fetchCampuses, fetchStudents, fetchCampus, dbDeleteStudent} from '../reducers'
+import CampusItem from './CampusItem'
 export class StudentProfile extends Component {
   componentDidMount(){
     this.props.fetchInitialData()
@@ -15,12 +15,19 @@ export class StudentProfile extends Component {
 
     // const selectedStudent = this.props.students.find(student => student.id == this.props.selectedStudent)
     const selectedStudent = this.props.selectedStudent
-    console.log(selectedStudent)
+    const selectedCampus = this.props.selectedCampus
+    console.log('looking for campuses', this.props.campuses.filter(campus => campus.id === selectedStudent.campusId))
     console.log('looking for history', history)
     return (
-      selectedStudent &&
+     selectedStudent &&
 
-      <div>"StudentProfile for" {selectedStudent.name}
+      <div>
+        <div>"StudentProfile for" {selectedStudent.name}, a student at { this.props.campuses.filter(campus => campus.id === selectedStudent.campusId).map(campus => (<CampusItem campus={campus} key={campus.id}>{campus.name}</CampusItem>)) }
+
+
+
+
+      </div>
       <form onSubmit={this.props.handleSubmit} value={selectedStudent.id}>
         <div>
           <label> edit name </label>
@@ -92,6 +99,9 @@ const mapDispatch = function(dispatch, ownProps) {
           // dispatch(fetchStudents())
           // dispatch(fetchCampuses())
           dispatch(fetchStudent(ownProps.match.params))
+
+          const test = ownProps
+          console.log('looking for campusId', test)
 
     }
   }

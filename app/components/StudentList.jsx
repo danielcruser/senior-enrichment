@@ -11,7 +11,6 @@ class StudentList extends Component {
   }
 
   render()  {
-    console.log('looking for campuses', this.props)
     return (
       <div className='container'>
         <ul>

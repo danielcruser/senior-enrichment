@@ -12,7 +12,8 @@ export class CampusItem extends Component {
     console.log('Campus Item Props', this.props)
     console.log('Campus Item State', this.state)
     return (
-      <div> {this.props.campus.name}
+
+      <div> {this.props.campus.name }
         <NavLink
 
           className="campus-profile-btn"
@@ -28,9 +29,22 @@ export class CampusItem extends Component {
 const mapState = function(state){
   return {
     ...state,
-    campuses: state.campuses
+    campus: state.selectedCampus
+  }
+}
+const mapDispatch = function(dispatch, ownProps) {
+  console.log('ownProps', ownProps)
+  return {
+
+        fetchInitialData: () =>{
+          // dispatch(fetchCampus(ownProps.match.params))
+
+          const test = ownProps
+          console.log('looking for campusIdAgain', test)
+          // dispatch(fetchCampus({campusId: 2} ))
+    }
   }
 }
 
 
-export default withRouter(connect(mapState, null)(CampusItem))
+export default withRouter(connect(mapState, mapDispatch)(CampusItem))

@@ -23,7 +23,7 @@ class Routes extends Component {
       <Root>
           <Switch>
             <Route exact path='/students' component={StudentList} />
-            <Route path='/students/:studentId' render={(props)=><StudentProfile props = {props.match.params} /> }  />
+            <Route path='/students/:studentId' component={StudentProfile}   />
             <Route exact path='/campuses' component={CampusList} />
             <Route path='/campuses/:campusId' render={(props)=><CampusProfile props = {props.match.params} /> }  />
 
