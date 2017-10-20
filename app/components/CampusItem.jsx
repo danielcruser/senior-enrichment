@@ -9,8 +9,6 @@ export class CampusItem extends Component {
   render()  {
 
 
-    console.log('Campus Item Props', this.props)
-    console.log('Campus Item State', this.state)
     return (
 
       <div> {this.props.campus.name }
@@ -33,7 +31,7 @@ const mapState = function(state){
   }
 }
 const mapDispatch = function(dispatch, ownProps) {
-  console.log('ownProps', ownProps)
+
   return {
 
         fetchInitialData: () =>{

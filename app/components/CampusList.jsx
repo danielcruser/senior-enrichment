@@ -12,7 +12,7 @@ export class CampusList extends Component {
   }
 
   render()  {
-    console.log('campus list props', this.props)
+
     return (
       <div className='container'>
       <ul>
