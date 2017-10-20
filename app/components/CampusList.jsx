@@ -44,7 +44,7 @@ export class CampusList extends Component {
               <input
                 name="campusImage"
                 type="text"
-                placeholder='ImageUrl' />
+                placeholder='optional' />
               </div>
 
 
