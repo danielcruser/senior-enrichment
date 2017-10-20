@@ -7,7 +7,7 @@ export class StudentItem extends Component {
 
   render() {
     return (
-      <div> {this.props.student.name}
+      <div>
         <NavLink className="student-profile-btn" to={`/students/${this.props.student.id}`}>
           {this.props.student.name}
         </NavLink>

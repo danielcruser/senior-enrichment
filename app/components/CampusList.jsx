@@ -15,6 +15,7 @@ export class CampusList extends Component {
 
     return (
       <div className='container'>
+        <h3> Campus Page </h3>
         <ul>
           {this.props.campuses
             .map(campus => (
@@ -25,14 +26,31 @@ export class CampusList extends Component {
         <br />
         <br />
         <div>
+          <p> Create a Campus! </p>
           <form onSubmit={this.props.handleSubmit}>
+              <ul>
+                <li>
             <div>
-              <label> create name </label>
+              <label> Name: </label>
               <input
                 name="campusName"
                 type="text"
                 placeholder='name' />
             </div>
+            </li>
+              <li>
+              <div>
+              <label> Image: </label>
+              <input
+                name="campusImage"
+                type="text"
+                placeholder='ImageUrl' />
+              </div>
+
+
+                </li>
+              </ul>
+
             <div>
               <button type="submit"> Create Campus  </button>
             </div>
@@ -49,7 +67,8 @@ const mapDispatch = function (dispatch, ownProps) {
     handleSubmit(event) {
       event.preventDefault()
       const name = event.target.campusName.value
-      dispatch(postCampus({ name }, ownProps.history))
+      const image = event.target.campusImage.value
+      dispatch(postCampus({ name, image }, ownProps.history))
     }
   }
 }

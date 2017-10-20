@@ -9,32 +9,39 @@ class StudentList extends Component {
   render() {
     return (
       <div className='container'>
+        <h3> Student Page </h3>
         <ul>
           {this.props.students
             .map(student => (
-              <StudentItem student={student} key={student.id}>
-                {student.name}
-              </StudentItem>))}
+              <StudentItem student={student} key={student.id} />))}
         </ul>
         <br />
         <br />
         <div>
           <form onSubmit={this.props.handleSubmit}>
-            <div>
-              <label> create name </label>
-              <input
-                name="studentName"
-                type="text"
-                placeholder='name' />
-              <label> create email </label>
-              <input
-                name="studentEmail"
-                type="text"
-                placeholder='email' />
-              <label> choose campus </label>
-              <select name="studentCampusId">
-                {this.props.campuses.map(campus => <option value={campus.id} key={campus.id}>{campus.name}</option>)}
-              </select>
+            <div> Create A Student!
+              <ul>
+                <li>
+                  <label> Name </label>
+                  <input
+                    name="studentName"
+                    type="text"
+                    placeholder='name' />
+                </li>
+                <li>
+                  <label> Email </label>
+                  <input
+                    name="studentEmail"
+                    type="text"
+                    placeholder='email' />
+                </li>
+                <li>
+                  <label> Choose an existing Campus! </label>
+                  <select name="studentCampusId">
+                    {this.props.campuses.map(campus => <option value={campus.id} key={campus.id}>{campus.name}</option>)}
+                  </select>
+                </li>
+              </ul>
             </div>
             <div>
               <button type="submit"> Create Student  </button>

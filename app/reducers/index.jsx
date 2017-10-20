@@ -3,7 +3,7 @@ import {
 } from 'redux'
 import axios from 'axios'
 
-//Action Types
+
 const GET_STUDENTS = 'GET_STUDENTS'
 const SELECT_STUDENT = 'SELECT_STUDENT'
 const UPDATE_STUDENT = 'UPDATE_STUDENT'
@@ -14,7 +14,7 @@ const SELECT_CAMPUS = 'SELECT_CAMPUS'
 const UPDATE_CAMPUS = 'UPDATE_CAMPUS'
 const DELETE_CAMPUS = 'DELETE_CAMPUS'
 const CREATE_CAMPUS = 'CREATE_CAMPUS'
-// Action Creators
+
 
 export function getStudents(students) {
   return {
@@ -78,7 +78,6 @@ export function createCampus(campus) {
   }
 }
 
-//Thunks
 
 export function fetchStudents() {
 
@@ -219,8 +218,6 @@ export function dbDeleteCampus(campus, history) {
 }
 
 
-
-//InitialState
 const initialState = {
   students: [],
   selectedStudent: {},
@@ -228,7 +225,7 @@ const initialState = {
   selectedCampus: {}
 }
 
-//Reducer
+
 const rootReducer = function (state = initialState, action) {
 
   switch (action.type) {

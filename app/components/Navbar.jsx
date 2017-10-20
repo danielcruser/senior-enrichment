@@ -10,7 +10,7 @@ export default class Navbar extends React.Component {
 
   render() {
     return (
-      <div> This is the NavBar
+      <div>
         <ul>
           <li>
             <NavLink className="student-list-btn" to={`/students`}> Students </NavLink>

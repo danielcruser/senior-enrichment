@@ -19,11 +19,12 @@ export class CampusProfile extends Component {
     return (
       selectedCampus &&
       <div>
-        <div>CampusProfileComponent for {selectedCampus.name} </div>
+        <div>  <h2>Detailed Profile for {selectedCampus.name}</h2></div>
         <div>
+          <h4> Currently Enrolled Students </h4>
           <ul>
             {this.props.students.filter(student => student.campusId == selectedCampus.id)
-              .map(student => (<div key={student.email}>
+              .map(student => (<li key={student.email}>
                 <StudentItem student={student} >
                   {student.name}
                 </StudentItem>
@@ -32,21 +33,29 @@ export class CampusProfile extends Component {
                     <button type="submit" name="deleteId" value={student.id} >delete student</button>
                   </div>
                 </form>
-              </div>))}
+              </li>))}
           </ul>
         </div>
+        <br />
+        <h2> Update Campus Info </h2>
         <form onSubmit={this.props.handleSubmit} value={selectedCampus.id}>
           <div>
-            <label> edit campus name </label>
+            <ul>
+              <li>
+            <label> Desired Campus Name: </label>
             <input
               name="campus"
               type="text"
               placeholder={selectedCampus.name} />
-            <label> edit campus image </label>
+              </li>
+              <li>
+            <label> Desired Campus Image: </label>
             <input
               name="campusImage"
               type="test"
               placeholder={selectedCampus.image} />
+              </li>
+              </ul>
             <input
               readOnly="readOnly"
               value={selectedCampus.id}
@@ -55,7 +64,7 @@ export class CampusProfile extends Component {
             />
           </div>
           <div>
-            <button type="submit"> Submit new campus info </button>
+            <button type="submit"> Submit updated campus info </button>
           </div>
         </form>
         <form onSubmit={this.props.handleDelete}>

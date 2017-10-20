@@ -16,35 +16,45 @@ export class StudentProfile extends Component {
     return (
       selectedStudent &&
       <div>
-        <div>"StudentProfile for" {selectedStudent.name}
-        </div>
+        <h2>"StudentProfile for" {selectedStudent.name}
+        </h2>
         <form onSubmit={this.props.handleSubmit} value={selectedStudent.id}>
-          <div>
-            <label> edit name </label>
-            <input
-              name="studentName"
-              type="text"
-              placeholder={selectedStudent.name} />
-            <label> edit email </label>
-            <input
-              name="studentEmail"
-              type="text"
-              placeholder={selectedStudent.email} />
-            <label> edit campus </label>
-            <select name="studentCampusId">
-              {this.props.campuses.map(campus => <option value={campus.id} key={campus.name}>{campus.name}</option>)}
-            </select>
+
+          <ul>
+            <li>
+              <label> edit name </label>
+              <input
+                name="studentName"
+                type="text"
+                placeholder={selectedStudent.name} />
+            </li>
+            <li>
+              <label> edit email </label>
+              <input
+                name="studentEmail"
+                type="text"
+                placeholder={selectedStudent.email} />
+            </li>
+            <li>
+              <label> edit campus </label>
+              <select name="studentCampusId">
+                {this.props.campuses.map(campus => <option value={campus.id} key={campus.name}>{campus.name}</option>)}
+              </select>
+            </li>
             <input
               readOnly="readOnly"
               value={selectedStudent.id}
               name="id"
               type="hidden"
             />
-          </div>
+          </ul>
           <div>
             <button type="submit"> Edit Student info </button>
           </div>
         </form>
+        <br />
+        <h4> Deleting is Permanent! </h4>
+
         <form onSubmit={this.props.handleDelete}>
           <div>
             <button type="submit" name="deleteId" value={this.props.selectedStudent.id}>delete student</button>

@@ -9,7 +9,7 @@ export class CampusItem extends Component {
   render() {
 
     return (
-      <div> {this.props.campus.name}
+      <div>
         <NavLink
           className="campus-profile-btn"
           to={`/campuses/${this.props.campus.id}`} >
