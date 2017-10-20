@@ -9,8 +9,8 @@ const DELETE_STUDENT = 'DELETE_STUDENT'
 const CREATE_STUDENT = 'CREATE_STUDENT'
 const GET_CAMPUSES = 'GET_CAMPUSES'
 const SELECT_CAMPUS = 'SELECT_CAMPUS'
-const UPDATED_A_CAMPUS = 'UPDATED_A_CAMPUS'
-const DELETED_A_CAMPUS = 'DELETED_A_CAMPUS'
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS'
+const DELETE_CAMPUS = 'DELETE_CAMPUS'
 const CREATE_CAMPUS = 'CREATE_CAMPUS'
 // Action Creators
 
@@ -57,7 +57,18 @@ export function getCampus(campus){
     campus: campus
   }
 }
-
+export function updateCampus(campus){
+  return {
+    type: UPDATE_CAMPUS,
+    campus: campus
+  }
+}
+export function deleteCampus(campus){
+  return {
+    type: DELETE_CAMPUS,
+    campus: {}
+  }
+}
 export function createCampus(campus){
   return {
     type: CREATE_CAMPUS,
@@ -158,6 +169,19 @@ export function fetchCampus(campus){
     }
   }
 
+export function putCampus(campus){
+
+      return function thunk(dispatch) {
+        console.log('putting campus', campus)
+        return axios.put(`/api/campuses/${campus.id}`, campus)
+        .then(res => res.data)
+        .then( campus => {
+          const action = updateCampus(campus)
+          dispatch(action)
+        })
+      }
+    }
+
 export function postCampus(campus, history){
 
     console.log('posting campus', campus)
@@ -175,6 +199,19 @@ export function postCampus(campus, history){
         }
       }
 
+export function dbDeleteCampus(campus, history){
+  return function thunk(dispatch) {
+    console.log('deleting a campus', campus)
+    return axios.delete(`/api/campuses/${campus.id}`, campus)
+      .then(res => res.data)
+      .then( campus => {
+        const action = deleteCampus(campus)
+        dispatch(action)
+        dispatch(fetchCampuses())
+        history.push('/campuses')
+      })
+  }
+}
 
 
 
@@ -208,6 +245,13 @@ const rootReducer = function(state = initialState, action) {
         selectedStudent: action.student
       }
 
+    case UPDATE_STUDENT:{
+      return{
+        ...state,
+        selectedStudent: action.student
+      }
+    }
+
     case CREATE_STUDENT:
       return {
         ...state,
@@ -224,10 +268,24 @@ const rootReducer = function(state = initialState, action) {
       ...state,
       selectedCampus: action.campus
     }
+
+    case UPDATE_CAMPUS:{
+      return{
+        ...state,
+        selectedCampus: action.Campus
+      }
+    }
+
     case CREATE_CAMPUS:
     return {
       ...state,
       selectedCampus: action.campus
+    }
+
+    case DELETE_CAMPUS:
+    return {
+      ...state,
+      selecteCampus: action.campus
     }
     default: return state
   }

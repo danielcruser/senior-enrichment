@@ -22,9 +22,9 @@ router.post('/', (req, res, next) => {
 })
 
 router.delete('/:campusId', (req, res, next) => {
-  User.findAll({where: {campusId: req.params.campusId}})
-  .then(users => {
-    if (!users.length) {
+  Campus.findAll({where: {campusId: req.params.campusId}})
+  .then(campus => {
+    if (!campuses.length) {
       Campus.destroy({where: {id: req.params.campusId}})
       .then(() => res.send(' destroyed') )
     } else {
@@ -34,7 +34,13 @@ router.delete('/:campusId', (req, res, next) => {
   .catch(next)
 })
 
-//TODO:  put/update route
+router.put('/:campusId', (req, res, next) => {
+  Campus.update({name:req.body.name}, {
+    where: {id: req.params.campusId}
+  })
+  .then((campus) => res.send(campus))
+  .catch(next)
+})
 
 
 module.exports = router

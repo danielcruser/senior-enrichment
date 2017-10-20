@@ -22,7 +22,7 @@ router.post('/', (req, res, next) => {
   .catch(next)
 })
 
-//TODO:  put/update
+
 router.delete('/:studentId', (req, res, next) => {
   Student.destroy({where: {id: req.params.studentId}})
   .then(() => res.send('destroyed'))
@@ -33,7 +33,7 @@ router.put('/:studentId', (req, res, next) => {
 
   console.log('req', req.body)
   Student.update({name: req.body.name, email: req.body.email, campusId: req.body.campusId}, {where: {id: req.params.studentId}})
-  .then(() => res.send('updated'))
+  .then((student) => res.send(student))
   .catch(next)
 })
 
